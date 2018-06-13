@@ -47,6 +47,21 @@ class ParserTest extends TestCase
                 [],
                 '',
             ],
+            'Encoded query parameters' => [
+                [
+                    'foo_bar' => 'what ever',
+                ],
+                [],
+                [
+                    'REQUEST_METHOD' => 'GET',
+                    'REQUEST_URI' => '/foobar?foo%20bar=what%20ever',
+                    'SERVER_PROTOCOL' => 'HTTP/1.1',
+                    'HTTP_ACCEPT' => 'application/json',
+                ],
+                [],
+                [],
+                '',
+            ],
         ];
 
         foreach (array_keys($provider) as $key) {
