@@ -1,0 +1,29 @@
+{
+    "name": "toflar/http-request-parser",
+    "description": "Parses the string representation of an HTTP request into a PHP superglobal like array",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yanick Witschi",
+            "email": "yanick.witschi@terminal42.ch"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.6",
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Toflar\\HttpRequestParser\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Toflar\\HttpRequestParser\\Test\\": "tests"
+        }
+    }
+}
