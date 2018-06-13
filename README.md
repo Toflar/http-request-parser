@@ -22,7 +22,7 @@ It's easiest to understand by using an example:
 use Toflar\HttpRequestParser\Parser;
 
 $raw = <<<REQUEST
-POST /foobar?test=foo%20bar HTTP/1.1
+GET /foobar?test=foo%20bar HTTP/1.1
 Accept: application/json
 Host: example.com
 Connection: close
@@ -42,7 +42,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Toflar\HttpRequestParser\Parser;
 
 $raw = <<<REQUEST
-POST /foobar?test=foo%20bar HTTP/1.1
+GET /foobar?test=foo%20bar HTTP/1.1
 Accept: application/json
 Host: example.com
 Connection: close
