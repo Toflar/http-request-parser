@@ -1,4 +1,6 @@
-# HTTP Request parser
+# HTTP Request Parser
+
+**THIS IS WORK IN PROGRESS WITHOUT ANY RELEASE**
 
 This tiny library parses an HTTP request from its raw string representation to PHP superglobal like arrays.
 Typical PHP libraries such as the Symfony HttpFoundation provide ways to represent the current request as an object
