@@ -62,6 +62,21 @@ class ParserTest extends TestCase
                 [],
                 '',
             ],
+            'Basic auth' => [
+                [],
+                [],
+                [
+                    'REQUEST_METHOD' => 'GET',
+                    'REQUEST_URI' => '/',
+                    'SERVER_PROTOCOL' => 'HTTP/1.1',
+                    'PHP_AUTH_USER' => 'Aladdin',
+                    'PHP_AUTH_PW' => 'open sesame',
+                    'HTTP_AUTHORIZATION' => 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==',
+                ],
+                [],
+                [],
+                '',
+            ],
         ];
 
         foreach (array_keys($provider) as $key) {

@@ -161,13 +161,6 @@ class Parser
         foreach ($headers as $header) {
             list($name, $value) = explode(':', $header, 2);
 
-            // Trim both
-            $name = trim($name);
-            $value = trim($value);
-
-            // TODO: $_COOKIE
-            // TODO: basic auth
-
             $this->setHeaderToServer($name, $value);
         }
     }
@@ -209,6 +202,10 @@ class Parser
 
     private function setHeaderToServer(string $name, string $value): void
     {
+        // Trim both
+        $name = trim($name);
+        $value = trim($value);
+
         $name = strtolower($name);
         $nameNormalized = strtoupper(str_replace('-', '_', $name));
 
@@ -218,7 +215,22 @@ class Parser
             case 'content-length':
                 $this->server[$nameNormalized] = $value;
                 break;
+            case 'authorization':
+                preg_match('/(?P<scheme>.*) (?P<value>.*)$/i', $value, $matches);
+                $scheme = strtolower($matches['scheme']);
+
+                switch ($scheme) {
+                    case 'basic':
+                        list($user, $pass) = explode(':', base64_decode($matches['value']), 2);
+                        $this->server['PHP_AUTH_USER'] = $user;
+                        $this->server['PHP_AUTH_PW'] = $pass;
+                        break;
+                    // TODO: digest
+
+                }
+            // TODO: $_COOKIE
         }
+
 
         $this->server['HTTP_'.$nameNormalized] = $value;
     }
