@@ -109,6 +109,25 @@ class ParserTest extends TestCase
                 ],
                 '',
             ],
+            'Form post' => [
+                [],
+                [
+                    'foo' => 'bar',
+                    'foo2' => 'bar 20',
+                ],
+                [
+                    'REQUEST_METHOD' => 'POST',
+                    'REQUEST_URI' => '/',
+                    'SERVER_PROTOCOL' => 'HTTP/1.1',
+                    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=utf-8',
+                    'HTTP_CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=utf-8',
+                    'CONTENT_LENGTH' => '19',
+                    'HTTP_CONTENT_LENGTH' => '19',
+                ],
+                [],
+                [],
+                'foo=bar&foo2=bar+20',
+            ],
         ];
 
         foreach (array_keys($provider) as $key) {

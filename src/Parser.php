@@ -116,12 +116,10 @@ class Parser
             return;
         }
 
-        if (false !== strpos($this->raw, "\r\n\r\n")) {
-            list($headers, $body) = explode("\r\n\r\n", $this->raw, 2);
-        } else {
-            $headers = $this->raw;
-            $body = '';
-        }
+        preg_match('/(?P<headers>.+?)((\r|\r?\n){2}(?P<body>.*))?$/s', $this->raw, $matches);
+
+        $headers = trim($matches['headers']);
+        $body = trim($matches['body'] ?? '');
 
         $headers = explode("\n", $headers);
         $headers = array_filter(array_map('trim', $headers));
@@ -169,11 +167,15 @@ class Parser
     {
         $this->body = $body;
 
-        if ('' === $body) {
+        if ('' === $body || 'POST' !== $this->server['REQUEST_METHOD']) {
             return;
         }
 
-        // TODO: $_POST
+        // $_POST
+        if (stripos($this->server['HTTP_CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
+            parse_str($this->body, $this->post);
+        }
+
         // TODO: $_FILES
     }
 
