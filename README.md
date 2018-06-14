@@ -1,5 +1,8 @@
 # HTTP Request Parser
 
+[![](https://img.shields.io/travis/Toflar/http-request-parser/master.svg?style=flat-square)](https://travis-ci.org/Toflar/http-request-parser/)
+[![](https://img.shields.io/coveralls/Toflar/http-request-parser/master.svg?style=flat-square)](https://coveralls.io/github/Toflar/http-request-parser)
+
 **THIS IS WORK IN PROGRESS WITHOUT ANY RELEASE**
 
 This tiny library parses an HTTP request from its raw string representation to PHP superglobal like arrays.
