@@ -189,14 +189,7 @@ class Parser
         foreach ($chunks as $chunk) {
             list($key, $value) = explode('=', $chunk, 2);
 
-            // Both, key and value are decoded by PHP for $_GET so we do that here too
-            $key = urldecode($key);
-            $value = urldecode($value);
-
-            // For the key, PHP replaces spaces by an underscore
-            $key = str_replace(' ', '_', $key);
-
-            $this->get[$key] = $value;
+            $this->decodeAndSetKeyValuePair($key, $value, $this->get);
         }
     }
 
@@ -230,10 +223,41 @@ class Parser
                         break;
 
                 }
-            // TODO: $_COOKIE
+                break;
+            case 'cookie':
+                $this->parseCookie($value);
+                break;
         }
 
 
         $this->server['HTTP_'.$nameNormalized] = $value;
+    }
+
+    private function parseCookie(string $value)
+    {
+        $parsed = [];
+        $cookies = explode(';', $value);
+
+        foreach ($cookies as $cookie) {
+            list($name, $value) = explode('=', $cookie, 2);
+
+            $name = trim($name);
+            $value = trim($value);
+
+            $this->decodeAndSetKeyValuePair($name, $value, $parsed);
+        }
+
+        $this->cookie = $parsed;
+    }
+
+    private function decodeAndSetKeyValuePair(string $key, string $value, &$array)
+    {
+        $key = urldecode($key);
+        $value = urldecode($value);
+
+        // PHP replaces spaces by an underscore
+        $key = str_replace(' ', '_', $key);
+
+        $array[$key] = $value;
     }
 }

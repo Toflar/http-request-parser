@@ -32,7 +32,7 @@ REQUEST;
 
 $parser = new Parser($raw);
 
-var_dump($parser->getGet()); // would output the equivalent of $_GET (encoded as PHP would)
+var_dump($parser->getGet()); // would output the equivalent of $_GET (decoded as PHP would)
 ```
 
 You can use the results to create e.g. Symfony requests from these values then:

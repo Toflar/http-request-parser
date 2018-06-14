@@ -91,6 +91,24 @@ class ParserTest extends TestCase
                 [],
                 '',
             ],
+            'Cookies' => [
+                [],
+                [],
+                [
+                    'REQUEST_METHOD' => 'GET',
+                    'REQUEST_URI' => '/',
+                    'SERVER_PROTOCOL' => 'HTTP/1.1',
+                    'HTTP_COOKIE' => 'name=value; name2=value2; name3=value3; name4=value%20foobar'
+                ],
+                [],
+                [
+                    'name' => 'value',
+                    'name2' => 'value2',
+                    'name3' => 'value3',
+                    'name4' => 'value foobar',
+                ],
+                '',
+            ],
         ];
 
         foreach (array_keys($provider) as $key) {
