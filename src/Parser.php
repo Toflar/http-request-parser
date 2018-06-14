@@ -128,7 +128,7 @@ class Parser
 
         // Parse first line
         $first = array_shift($headers);
-        preg_match('/(?P<method>.*) (?P<path>.*) (?P<protocol>.*)$/', $first, $matches);
+        preg_match('/(?P<method>.*) (?P<path>.*) (?P<protocol>.*)$/U', $first, $matches);
         $this->server['REQUEST_METHOD'] = $matches['method'];
         $this->server['REQUEST_URI'] = $matches['path'];
         $this->server['SERVER_PROTOCOL'] = $matches['protocol'];
@@ -216,7 +216,7 @@ class Parser
                 $this->server[$nameNormalized] = $value;
                 break;
             case 'authorization':
-                preg_match('/(?P<scheme>.*) (?P<value>.*)$/i', $value, $matches);
+                preg_match('/(?P<scheme>.*) (?P<value>.*)$/Ui', $value, $matches);
                 $scheme = strtolower($matches['scheme']);
 
                 switch ($scheme) {
@@ -225,7 +225,9 @@ class Parser
                         $this->server['PHP_AUTH_USER'] = $user;
                         $this->server['PHP_AUTH_PW'] = $pass;
                         break;
-                    // TODO: digest
+                    case 'digest':
+                        $this->server['PHP_AUTH_DIGEST'] = $matches['value'];
+                        break;
 
                 }
             // TODO: $_COOKIE
